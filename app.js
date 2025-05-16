@@ -23,11 +23,13 @@ function activatefield() {
 // acceder al boton
 const button = document.getElementById("button");
 
-// acceder valores de los campos
+// Funcion que calcula el precio a pagar dependiendo el vehiculo que haya elegido
 function calculate_payment() {
+  // acceder valores de los campos
   const car_price = 50000;
   const motorbike_price = 30000;
-  // acceder valores de los input
+
+  // acceder valores de los input, pasamos el days a entero para hacer operaciones con el
   days = parseInt(days_to_rental.value);
   name = client_name.value;
   number = client_number.value;
@@ -45,6 +47,16 @@ function calculate_payment() {
 }
 
 function showcard() {
+  // Verificar si hay campos vacíos
+  if (
+    get_vehicle.value === "" ||
+    days_to_rental.value === "" ||
+    client_name.value === "" ||
+    client_number.value === ""
+  ) {
+    alert("Por favor complete todos los campos");
+    return;
+  }
   // asignamos el valor que nos da la funcion a resultado
   let total_to_pay = calculate_payment();
   // seleccionamos card
@@ -58,10 +70,20 @@ function showcard() {
                 <h6 class="card-text">Dias: <span>${days_to_rental.value}</span></h6>
                 <h6 class="card-text">Nombre: <span>${client_name.value}</span></h6>
                 <h6 class="card-text">Telefono: <span>${client_number.value}</span></h6>
-                <h6 class="card-text">Total" <span>${total_to_pay}</span></h6>
-                <button type="button" class="btn btn-primary" id="button">
+                <h6 class="card-text">Total: <span>${total_to_pay}</span></h6>
+                <button type="button" class="btn btn-primary" id="button" onclick="show_alert()">
                   Confirmar Compra
                 </button>
               </div>
             </div>`;
+}
+
+function show_alert() {
+  alert(
+    "Pago realizado con éxito para " +
+      client_name.value +
+      " con el teléfono " +
+      client_number.value
+  );
+  location.reload();
 }
